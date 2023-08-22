@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -13,9 +12,5 @@ func CheckError(err error) {
 }
 
 func CheckErrReturn(err error) bool {
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-	return true
+	return err == nil
 }
