@@ -2,26 +2,31 @@ package helper
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/nehaal10/CardGaurd/models"
+	"github.com/nehaal10/CardGaurd/utils"
 	"gorm.io/gorm"
 )
 
 func Insert_users(user models.UserDatabase, db *gorm.DB) string {
-	msg := user.ValidateEmail()
-	if !msg {
-		log.Fatal(msg)
-		return "In Valid Email ID"
-	} else {
-		db.Create(&user)
+	//hash password
+	user.Password = string(utils.HashPassword(user.Password))
+	result := db.Create(&user)
+	isErr := utils.CheckErrReturn(result.Error)
+	if !isErr {
+		return fmt.Sprintf("Cannot Register--Try AGAIN--%s", result.Error)
 	}
-	str := fmt.Sprintf("%d inserted in the databse", user.ID)
-	return str
+	return "Registerd"
 }
 
-func Insert_fraud(db *gorm.DB, fraud models.FraudDataBase) *gorm.DB {
-	result := db.Create(&fraud)
-	//str := fmt.Sprintf("%d inserted in the databse", fraud.ID)
-	return result
+func Insert_fraud(db *gorm.DB, fraud models.FraudDataBase) string {
+
+	isCheck := Cvv(fraud.Cvv) && DateVerify(fraud.ExpiryDate) && Number(fraud.CreditCardNo)
+
+	if !isCheck {
+		result := db.Create(&fraud)
+		utils.CheckError(result.Error)
+		return "Not Verified"
+	}
+	return "Your are verified"
 }
