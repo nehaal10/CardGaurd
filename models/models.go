@@ -9,7 +9,8 @@ import (
 
 type FraudDataBase struct {
 	ID           uint   `json:"id" validate:"numeric" gorm:"primaryKey"`
-	CreditCardNo string `json:"creditcardno" validate:"required" gorm:"unique"`
+	UserName     string `json:"username,omitempty"`
+	CreditCardNo string `json:"creditcardno" validate:"required"`
 	Cvv          string `json:"cvv" validate:"required"`
 	ExpiryDate   string `json:"expirydate" validate:"required"`
 }

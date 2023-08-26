@@ -14,13 +14,17 @@ func Fraud_users(c *gin.Context) {
 	var creditcardDetails models.FraudDataBase
 	err := c.ShouldBindJSON(&creditcardDetails)
 	check := creditcardDetails.Validating()
-
 	if !check {
 		c.Status(400)
 		return
 	}
-
 	utils.CheckError(err)
+	username, err := helper.GetCookie(c)
+	if err != nil {
+		c.Status(400)
+		return
+	}
+	creditcardDetails.UserName = username
 	str := helper.Insert_fraud(db, creditcardDetails)
 	c.JSON(200, str)
 }

@@ -12,5 +12,6 @@ func main() {
 	r.POST("/post", routes.Fraud_users)
 	r.POST("/register", routes.Register)
 	r.POST("/login", routes.Login)
+	r.GET("/logout", routes.Logout)
 	r.Run()
 }
