@@ -9,9 +9,10 @@ func main() {
 	r := gin.Default()
 	r.ForwardedByClientIP = true
 	r.SetTrustedProxies([]string{"127.0.0.1"})
-	r.POST("/post", routes.Fraud_users)
-	r.POST("/register", routes.Register)
-	r.POST("/login", routes.Login)
-	r.GET("/logout", routes.Logout)
+
+	r.POST("/api/post", routes.Fraud_users)
+	r.POST("/api/register", routes.Register)
+	r.POST("/api/login", routes.Login)
+	r.GET("/api/logout", routes.Logout)
 	r.Run()
 }

@@ -9,7 +9,6 @@ import (
 func Register(c *gin.Context) {
 	var userRegister models.UserDatabase
 	c.ShouldBindJSON(&userRegister)
-
 	check := userRegister.ValidateEmail() && userRegister.ValidatingUser()
 	if !check {
 		c.JSON(400, "connot register")
