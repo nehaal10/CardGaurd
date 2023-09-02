@@ -22,12 +22,14 @@ const Post = () => {
             })
         })
 
+        if(res.status === 200){
         await fetch('api/logout',{
             credentials:'include'
         })
         
         setContent(await res.json())
         setStatus(true)
+    }
     }
 
 

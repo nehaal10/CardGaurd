@@ -11,22 +11,29 @@ const Register = () => {
     const submit = async e => {
         e.preventDefault()
         
-        await fetch('/api/register',{
+        const response = await fetch('/api/register',{
             method: 'POST',
-            headers: {'Conternt-Type':'application/json'},
+            headers: {'Content-Type':'application/json'},
             body: JSON.stringify({
                 username,
                 emailid,
                 password
             })
         });
-        setRedirect(true)
+
+        //const output = await response.json()
+
+        if(response.status === 200){
+            setRedirect(true)
+        }
     }
-    if(redirect) {
-        return (
+    
+    // eslint-disable-next-line
+   if(redirect){
+    return(
         <Redirect to="/login"></Redirect>
-        )
-    }
+    )
+   }
 
     return(
         <form onSubmit={submit}>
@@ -44,7 +51,7 @@ const Register = () => {
             <input type="password" className="form-control" placeholder="Password" required onChange={e=>setPassword(e.target.value)}/>
 
 
-            <button className="w-100 btn btn-lg btn-primary" type="submit">register</button>
+            <button className="w-100 btn btn-lg btn-primary" type="submit" >register</button>
 
        </form> 
     )

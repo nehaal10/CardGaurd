@@ -15,6 +15,6 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	str := helper.Insert_users(userRegister, db)
-	c.JSON(200, str)
+	str, num := helper.Insert_users(userRegister, db)
+	c.JSON(num, str)
 }

@@ -23,7 +23,7 @@ func JwtAuth(user models.UserDatabase) string {
 		Username: user.UserName,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer:    strconv.Itoa(int(user.ID)),
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 5)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 15)),
 		},
 	})
 	token, err := claims.SignedString([]byte(os.Getenv("SECRET_KEY")))

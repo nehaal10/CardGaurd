@@ -11,7 +11,7 @@ const Login = () => {
 
   const submit =async e => {
     e.preventDefault()
-    await fetch('/api/login',{
+   const res =  await fetch('/api/login',{
       method:'POST',
       credentials:'include',
       headers:{'Content-Type':'application/json'},
@@ -22,7 +22,9 @@ const Login = () => {
       })
     })
 
-    setRedirect(true)
+    if(res.status === 200){
+      setRedirect(true)
+    }
 
   }
 
