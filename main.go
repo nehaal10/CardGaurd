@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/nehaal10/CardGaurd/routes"
 )
@@ -10,7 +11,7 @@ func main() {
 	r.ForwardedByClientIP = true
 	r.SetTrustedProxies([]string{"127.0.0.1"})
 	r.RedirectTrailingSlash = true
-	//r.Use(static.Serve("/", static.LocalFile("/assets/build", true)))
+	r.Use(static.Serve("/", static.LocalFile("./assets/build", true)))
 	r.POST("/api/post", routes.Fraud_users)
 	r.POST("/api/register", routes.Register)
 	r.POST("/api/login", routes.Login)
